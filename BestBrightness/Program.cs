@@ -6,6 +6,7 @@ using BusinesssLogic.SettingLogic;
 using DataLogic;
 using DataLogic.LogicInterfaces;
 using ElmahCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Repository.ProductRepository;
 using Repository.RepositoryInterfaces;
@@ -78,10 +79,29 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+app.UseStatusCodePages(async context =>
+{
+    if (context.HttpContext.Request.Path.StartsWithSegments("/api"))
+    {
+        if (!context.HttpContext.Response.ContentLength.HasValue || context.HttpContext.Response.ContentLength == 0)
+        {
+            // You can change ContentType as json serialize
+            context.HttpContext.Response.ContentType = "text/plain";
+            await context.HttpContext.Response.WriteAsync($"Status Code: {context.HttpContext.Response.StatusCode} - {ReasonPhrases.GetReasonPhrase(context.HttpContext.Response.StatusCode)}");
+        }
+    }
+    else
+    {
+        // You can ignore redirect
+        context.HttpContext.Response.Redirect($"/Error/{context.HttpContext.Response.StatusCode}");
+    }
+});
+
 app.UseRouting();
 
 app.UseAuthorization();
-
+app.UseElmah();
 app.MapRazorPages();
+app.MapDefaultControllerRoute();
 
 app.Run();
