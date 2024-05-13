@@ -1,5 +1,6 @@
 ﻿using AutoMapper.Internal.Mappers;
-using BestBrightness.StaticMappings;
+
+using BusinesssLogic.Mappings;
 using DataLogic.LogicInterfaces;
 using DataLogic.Product;
 using Repository.RepositoryInterfaces;
@@ -19,7 +20,7 @@ namespace BestBrightness.Logic
         public async Task<List<ProductView>> GetAllProductsAsync()
         {
             var products = await _iProducts.GetAllProducts();
-            return ObjectMappings.Mapper.Map<List<ProductModel>, List<ProductView>>(products.ToList());
+            return ObjectMapper.Mapper.Map<List<ProductModel>, List<ProductView>>(products.ToList());
         }
     }
 }
