@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataLogic.Members
 {
-    public class Member
+    public class MemberModel
     {
         public Guid MemberID { get; set; }
         public string Address { get; set; }
