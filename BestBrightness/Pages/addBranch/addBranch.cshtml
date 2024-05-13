@@ -1,0 +1,55 @@
+﻿@page
+@model BestBrightness.Pages.addBranch.addBranchModel
+
+<style>
+    /* Custom CSS for button */
+    .custom-button {
+        padding: 12px 24px; /* Adjust padding for a larger button */
+        border-radius: 5px; /* Add border radius for rounded corners */
+        background-color: #4CAF50; /* Add a custom background color */
+        color: white; /* Set text color to white */
+        border: none; /* Remove border */
+        cursor: pointer; /* Change cursor on hover */
+        transition: background-color 0.3s; /* Add transition effect */
+    }
+
+        /* Hover effect */
+        .custom-button:hover {
+            background-color: #45a049; /* Darker background color on hover */
+        }
+</style>
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h4 class="text-center">Branch Details</h4>
+
+            <label for="branchName">Branch Name:</label>
+            <input type="text" id="branchName" class="form-control mb-3" />
+
+            <label for="country">Country:</label>
+            <select id="country" class="form-control mb-3">
+                <option value="">Select Country</option> <!-- Placeholder option -->
+                <option value="country1">South Africa</option>
+                <option value="country2">Zimbabwe</option>
+            </select>
+
+            <label for="province">Province:</label>
+            <select id="province" class="form-control mb-3">
+                <option value="">Select Province</option> <!-- Placeholder option -->
+                <option value="province1">KwaZulu-Natal</option>
+                <option value="province2">Eastern Cape</option>
+            </select>
+
+            <label for="branchManager">Branch Manager:</label>
+            <select id="branchManager" class="form-control mb-3">
+                <option value="">Select Branch Manager</option> <!-- Placeholder option -->
+                <option value="manager1">Mr M. Ndlela</option>
+                <option value="manager2">Mr S. Mshengu</option>
+            </select>
+
+            <button type="button" class="btn custom-button btn-block">Add</button>
+        </div>
+    </div>
+</div>
+
