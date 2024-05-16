@@ -21,17 +21,17 @@
                 <label for="branchLocation" class="form-label">Branch Location</label>
                 <input type="text" class="form-control" id="branchLocation" placeholder="Enter branch location" required>
             </div>
-            <div class="mb-3">
-                <label for="province" class="form-label">Province</label>
-                <select class="form-select" id="province" required>
-                    <option value="">Select province</option>
-                    <!-- Add options for provinces here -->
-                    <option value="province1">Province 1</option>
-                    <option value="province2">Province 2</option>
-                    <option value="province3">Province 3</option>
-                    <!-- Add more options as needed -->
-                </select>
+            <div class="form-group col-md-3 mb-1">
+                @Html.LabelFor(model => model.SelectedProvince, "Province: ", new { @class = "font-weight-bold" })
+                @Html.DropDownListFor(model => model.SelectedProvince, Model.GetAllProvince.Select(d => new SelectListItem()
+                {
+                Value=d.ProvinceName,
+                Text= d.ProvinceName+""+d.City
+
+                }),"Please Select Province",new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SelectedProvince, "", new { @class = "text-danger" })
             </div>
+
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
