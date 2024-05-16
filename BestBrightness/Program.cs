@@ -61,8 +61,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 builder.Services.AddElmah();
 builder.Services.InqolaConnectionStringService(AppSettings.ConnectionString);
-builder.Services.AddDbContext<DefaultContext>(
-    options => options.UseSqlServer(AppSettings.ConnectionString));
+builder.Services.AddDbContext<DefaultContext>(options => options.UseSqlServer(AppSettings.ConnectionString));
 
 SetupCorsPolicy(builder.Services);
 
