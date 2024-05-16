@@ -2,6 +2,7 @@
 using BestBrightness.Logic;
 using BusinesssLogic.AppSetting;
 using BusinesssLogic.LogicInterface;
+using BusinesssLogic.ProvincesLogic;
 using BusinesssLogic.SettingLogic;
 using DataLogic;
 using DataLogic.LogicInterfaces;
@@ -9,6 +10,7 @@ using ElmahCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Repository.ProductRepository;
+using Repository.ProvinceRepository;
 using Repository.RepositoryInterfaces;
 using Repository.SettingsRepository;
 
@@ -50,11 +52,14 @@ void SetupInjectionDependency(WebApplicationBuilder webApplicationBuilder)
     webApplicationBuilder.Services.AddTransient<iSettingsRepository, SettingsRepository>();
     webApplicationBuilder.Services.AddTransient<ISettingsLogic, SettingsLogic>();
 
+    webApplicationBuilder.Services.AddTransient<iProvince, ProvinceRepo>();
+    webApplicationBuilder.Services.AddTransient<IProvinceLogic, ProvinceLogic>();
+
 }
 var builder = WebApplication.CreateBuilder(args);
 SetupInjectionDependency(builder);
 
-builder.Services.AddDbContext<DefaultContext>(item => item.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+//builder.Services.AddDbContext<DefaultContext>(item => item.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add services to the container.
 builder.Services.AddRazorPages();
