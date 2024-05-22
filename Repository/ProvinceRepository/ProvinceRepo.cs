@@ -1,5 +1,6 @@
 ﻿using DataLogic;
 using DataLogic.Provinces;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Repository.GenericRepository;
 using Repository.RepositoryInterfaces;
@@ -20,10 +21,15 @@ namespace Repository.ProvinceRepository
             _context = context;
         }
 
-        public async Task<List<Province>> GetAllProvines(CancellationToken token=default)
+        public async Task<List<Province>> GetAllProvines(string countryName ,CancellationToken token=default)
         {
-            const string query = "EXEC [GetAllProvinces]";
-            return await _context.Set<Province>().FromSqlRaw(query).ToListAsync(cancellationToken:token);
+            var parameters = new SqlParameter[]
+          {
+                  new SqlParameter("@countryName", countryName)
+                   
+          };
+            const string query = "EXEC [GetAllProvinces] @countryName";
+            return await _context.Set<Province>().FromSqlRaw(query, parameters).ToListAsync(cancellationToken:token);
         }
     }
 }

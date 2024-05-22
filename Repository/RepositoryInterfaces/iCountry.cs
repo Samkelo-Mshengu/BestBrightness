@@ -1,4 +1,4 @@
-﻿using DataLogic.Provinces;
+﻿using DataLogic.Countries;
 using Repository.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace Repository.RepositoryInterfaces
 {
-    public interface iProvince:iGenericRepository<Province>
+    public interface iCountry:iGenericRepository<County>
     {
-        Task<List<Province>> GetAllProvines(string countryName, CancellationToken token = default);
+        Task<List<County>> GetAllCountries(CancellationToken token = default);
+
     }
 }

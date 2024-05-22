@@ -52,6 +52,7 @@ namespace BusinesssLogic.Mappings
                 cfg.CreateMap<Status, StatusView>().ReverseMap();
                 cfg.CreateMap<SuperAdmin, SuperAdminView>().ReverseMap();
                 cfg.CreateMap<User, UserView>().ReverseMap();
+                cfg.CreateMap<AddBranchModel, AddBranchView>().ReverseMap();
             });
 
             var mapper = config.CreateMapper();

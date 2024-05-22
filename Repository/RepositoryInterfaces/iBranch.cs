@@ -1,4 +1,4 @@
-﻿using DataLogic.Provinces;
+﻿using DataLogic.Branches;
 using Repository.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Repository.RepositoryInterfaces
 {
-    public interface iProvince:iGenericRepository<Province>
+    public interface iBranch:iGenericRepository<Branch>
     {
-        Task<List<Province>> GetAllProvines(string countryName, CancellationToken token = default);
+        Task AddNewBranchAsync(AddBranchModel branch);
     }
 }

@@ -8,6 +8,7 @@ namespace ViewLogic.Countries
 {
     public class CountryView
     {
-        public string CountyName { get; set; }
+        public Guid CountyID { get; set; }
+        public string CountyName { get; set; } = default!;
     }
 }

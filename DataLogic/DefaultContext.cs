@@ -33,7 +33,7 @@ namespace DataLogic
         {
             //This is the connection String - Read from the environment variable.
             //optionsBuilder.UseSqlServer(Environment.GetEnvironmentVariable("ConnectionString"));
-            optionsBuilder.UseSqlServer(ServicesExtensions.InqolaConnectionString);
+            //optionsBuilder.UseSqlServer(ServicesExtensions.InqolaConnectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

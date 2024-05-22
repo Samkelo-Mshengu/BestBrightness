@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ViewLogic.Provinces;
+using ViewLogic.Branch;
 
 namespace BusinesssLogic.LogicInterface
 {
-    public interface IProvinceLogic
+    public interface IBranchLogic
     {
-        Task<List<ProvinceView>> GetAllProvinceAsync(string countryName);
+        Task AddNewBranchAsync(AddBranchView view);
     }
 }

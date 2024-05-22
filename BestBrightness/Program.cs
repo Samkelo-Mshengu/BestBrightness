@@ -1,6 +1,8 @@
 
 using BestBrightness.Logic;
 using BusinesssLogic.AppSetting;
+using BusinesssLogic.BranchLogic;
+using BusinesssLogic.CountryLogic;
 using BusinesssLogic.LogicInterface;
 using BusinesssLogic.ProvincesLogic;
 using BusinesssLogic.SettingLogic;
@@ -9,12 +11,27 @@ using DataLogic.LogicInterfaces;
 using ElmahCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
+using Repository.BranchRepository;
+using Repository.CountriesRepository;
 using Repository.ProductRepository;
 using Repository.ProvinceRepository;
 using Repository.RepositoryInterfaces;
 using Repository.SettingsRepository;
 
 
+IConfiguration Configuration;
+IWebHostEnvironment webHostEnvironment;
+void SetupEnviornment(IConfiguration configuration, IWebHostEnvironment env)
+{
+    var builder = new ConfigurationBuilder()
+        .SetBasePath(env.ContentRootPath)
+        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+        .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+        .AddEnvironmentVariables();
+
+    Configuration = configuration;
+    webHostEnvironment = env;
+}
 void SetupCorsPolicy(IServiceCollection services)
 {
     services.AddCors(options =>
@@ -55,19 +72,30 @@ void SetupInjectionDependency(WebApplicationBuilder webApplicationBuilder)
     webApplicationBuilder.Services.AddTransient<iProvince, ProvinceRepo>();
     webApplicationBuilder.Services.AddTransient<IProvinceLogic, ProvinceLogic>();
 
+
+    webApplicationBuilder.Services.AddTransient<iCountry, CountriesRepository>();
+    webApplicationBuilder.Services.AddTransient<ICountriesLogic, CountriesLogic>();
+
+
+    webApplicationBuilder.Services.AddTransient<IBranchLogic, BranchLogic>();
+    webApplicationBuilder.Services.AddTransient<iBranch, BranchRepo>();
+
 }
 var builder = WebApplication.CreateBuilder(args);
-SetupInjectionDependency(builder);
 
-//builder.Services.AddDbContext<DefaultContext>(item => item.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+SetupEnviornment(builder.Configuration, builder.Environment);
+builder.Services.AddDbContext<DefaultContext>(item => item.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 builder.Services.AddElmah();
-builder.Services.InqolaConnectionStringService(AppSettings.ConnectionString);
-builder.Services.AddDbContext<DefaultContext>(options => options.UseSqlServer(AppSettings.ConnectionString));
+//builder.Services.InqolaConnectionStringService(AppSettings.ConnectionString);
 
+//builder.Services.AddDbContext<DefaultContext>(options => options.UseSqlServer(AppSettings.ConnectionString));
+
+
+SetupInjectionDependency(builder);
 SetupCorsPolicy(builder.Services);
 
 var app = builder.Build();
@@ -107,5 +135,14 @@ app.UseAuthorization();
 app.UseElmah();
 app.MapRazorPages();
 app.MapDefaultControllerRoute();
+app.UseCors();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+    endpoints.MapRazorPages();
+});
+app.MapControllers();
 
 app.Run();

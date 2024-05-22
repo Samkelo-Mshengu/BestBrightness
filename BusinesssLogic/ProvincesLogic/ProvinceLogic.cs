@@ -26,9 +26,9 @@ namespace BusinesssLogic.ProvincesLogic
            _iProvince = iProvince;
         }
 
-        public async Task<List<ProvinceView>> GetAllProvinceAsync()
+        public async Task<List<ProvinceView>> GetAllProvinceAsync(string countryName)
         {
-            var province = await _iProvince.GetAllProvines();
+            var province = await _iProvince.GetAllProvines(countryName);
             return ObjectMapper.Mapper.Map<List<Province>, List<ProvinceView>>(province.ToList());
         }
 
