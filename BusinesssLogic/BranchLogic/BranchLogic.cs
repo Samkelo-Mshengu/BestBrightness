@@ -26,8 +26,7 @@ namespace BusinesssLogic.BranchLogic
 
             branchModel.BranchName = view.branch.BranchName;
             branchModel.BranchLocation = view.branch.BranchLocation;
-            branchModel.Provinces.ProvinceID = view.province.ProvinceID;
-            branchModel.Provinces.ProvinceName = view.province.ProvinceName;
+            branchModel.ProvinceID = view.branch.ProvinceID;
 
             await _branch.AddNewBranchAsync(branchModel);
         }

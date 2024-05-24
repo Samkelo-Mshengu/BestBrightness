@@ -1,21 +1,22 @@
-﻿ @page
+﻿@page
 @model BestBrightness.Pages.AddBranch.AddBranchModel
+@{
+    ViewData["Title"] = "Add Branch";
+}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
-    <title>Add Branch razor</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aU8f5qZgZlHfEauXhQrpf8rW+UZu0ekR1VQ/wl5jmzN9AzYZg6Me0/v5z4yBpXy" crossorigin="anonymous">
+    <title>Add Branch</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aU8f5qZlHfEauXhQrpf8rW+UZu0ekR1VQ/wl5jmzN9AzYZg6Me0/v5z4yBpXy" crossorigin="anonymous">
 </head>
 <body>
     <div class="container">
-        @*method="post" id="addBranchForm" asp-page="AddBranch" asp-route-actions="addBranch"*@
         <h1 class="mt-5 mb-4">Add Branch</h1>
-      @*   <form method="post" id="addBranchForm" asp-page="AddBranch" asp-route-actions="addBranch"> *@
-        <div class="mb-3">
+        <form method="post">
+            <div class="mb-3">
                 @Html.LabelFor(model => model.AddBranchView.branch.BranchName, htmlAttributes: new { @class = "font-weight-bold" })
                 @Html.TextBoxFor(model => model.AddBranchView.branch.BranchName, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.AddBranchView.branch.BranchName, "", new { @class = "text-danger" })
@@ -25,83 +26,65 @@
                 @Html.TextBoxFor(model => model.AddBranchView.branch.BranchLocation, new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.AddBranchView.branch.BranchLocation, "", new { @class = "text-danger" })
             </div>
+            <div class="form-group col-md-3 mb-1">
+                @Html.LabelFor(model => model.SelectedCountry, "Country: ", new { @class = "font-weight-bold" })
+                @if (Model.GetAllCountries != null)
+                {
+                    @Html.DropDownListFor(model => model.SelectedCountry, Model.GetAllCountries.Select(c => new SelectListItem { Value = c.CountyID.ToString(), Text = c.CountyName }), "Please Select Country", new { @class = "form-control", id = "countryDropdown" })
+                }
+                else
+                {
+                    <p>No countries available.</p>
+                }
 
+                @Html.ValidationMessageFor(model => model.SelectedCountry, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-md-3 mb-1" id="provinceDiv" style="display: none;">
+                @Html.LabelFor(model => model.SelectedProvince, "Province: ", new { @class = "font-weight-bold" })
+                @Html.DropDownListFor(model => model.SelectedProvince, Enumerable.Empty<SelectListItem>(), "Please Select Province", new { @class = "form-control", id = "provinceDropdown" })
+                @Html.ValidationMessageFor(model => model.SelectedProvince, "", new { @class = "text-danger" })
+            </div>
 
-        <form method="get" >
-                <div class="form-group col-md-3 mb-1">
-                    @Html.LabelFor(model => model.SelectedCountry, "Country: ", new { @class = "font-weight-bold" })
-                    @Html.DropDownListFor(model => model.SelectedCountry, Model.GetAllCountries.Select(d => new SelectListItem()
-               {
-                   Value = d.CountyName,
-                   Text = d.CountyName
-
-               }), "Please Select Country", new { @class = "form-control", id = "countryDropdown", onchange = "submit()" })
-                    @Html.ValidationMessageFor(model => model.SelectedCountry, "", new { @class = "text-danger" })
-                </div>
-            </form>
-
-       
-
-            @if (Model.GetAllProvince != null)
-            {
-                <div class="form-group col-md-3 mb-1">
-                    <label for="ProvinceDropDown" class="font-weight-bold">Province:</label>
-                    <select id="ProvinceDropDown" class="form-control">
-                        <option selected>Please Select Province</option>
-                        @foreach (var province in Model.GetAllProvince)
-                        {
-                            <option value="@province.ProvinceID">@province.ProvinceName+" "+@province.City</option>
-                        }
-                    </select>
-                </div>
-            }
-
-
-        <button type="button" onclick="OnPostAsync()" class="btn btn-primary">Add Branch <i class="fa fa-edit"></i></button>
-
-@*         </form> *@
-        @section Scripts {
- 
-
-               <script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-hW/4rZon3n8h5bwvTNFzPEoIxuAKgIxvwG2mfdkmgp0qki+Ch/vGtga4p1KIbcNU" crossorigin="anonymous"></script>
-            <script>
-                $(document).ready(function () {
-                    $("#countryDropdown").change(function () {
-                        var selectedCountry = $(this).val();
-                        if (selectedCountry) {
-                            $.ajax({
-                                url: '@Url.Page("AddBranch", "OnGetProvincesAsync")',
-                                type: 'GET',
-                                data: { selectedCountry: selectedCountry },
-                                success: function (response) {
-                                    var $provinceDropdown = $('#ProvinceDropDown');
-                                    $provinceDropdown.empty();
-                                    $provinceDropdown.append('<option selected>Please Select Province</option>');
-                                    $.each(response, function (i, province) {
-                                        $provinceDropdown.append('<option value="' + province.value + '">' + province.text + '</option>');
-                                    });
-                                    $("#provinceDiv").show();
-                                },
-                                error: function (xhr, status, error) {
-                                    console.error("Error: " + xhr.responseText);
-                                }
-                            });
-                        } else {
-                            $("#provinceDiv").hide();
-                        }
-                    });
-                });
-    
- </script>
-
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-hW/4rZon3n8h5bwvTNFzPEoIxuAKgIxvwG2mfdkmgp0qki+Ch/vGtga4p1KIbcNU" crossorigin="anonymous"></script>
-}
-           
-        
+            <button type="button" class="btn btn-primary" onclick="addBranch()">Add Branch <i class="fa fa-edit"></i></button>
+        </form>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function addBranch() {
+            // Here you can handle the form submission or any other action
+            $("form").submit();
+        }
 
-    
+        $("#countryDropdown").change(function () {
+            var selectedCountry = $(this).val();
+            var provinceDropdown = $("#provinceDropdown");
+            var provinceDiv = $("#provinceDiv");
+
+            if (selectedCountry) {
+                $.ajax({
+                    url: `/Home/GetProvinces?selectedCountry=${selectedCountry}`,
+                    type: "GET",
+                    success: function (provinces) {
+                        // Populate provinces dropdown
+                        provinceDropdown.empty();
+                        provinceDropdown.append("<option value=''>Please Select Province</option>");
+                        $.each(provinces, function (index, province) {
+                            provinceDropdown.append(`<option value="${province.provinceID}">${province.provinceName}</option>`);
+                        });
+
+                        // Show the provinces dropdown
+                        provinceDiv.show();
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error fetching provinces:', error);
+                    }
+                });
+            } else {
+                // Hide the provinces dropdown if no country is selected
+                provinceDiv.hide();
+            }
+        });
+    </script>
+
 </body>
 </html>
-

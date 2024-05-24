@@ -1,107 +1,60 @@
+using BusinesssLogic.BranchLogic;
 using BusinesssLogic.LogicInterface;
 using BusinesssLogic.Mappings;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Web.Helpers;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using ViewLogic.Branch;
 using ViewLogic.Countries;
 using ViewLogic.Provinces;
 
 namespace BestBrightness.Pages.AddBranch
 {
-
     public class AddBranchModel : PageModel
     {
+        private readonly ICountriesLogic _countriesLogic;
+        private readonly IProvinceLogic _provinceLogic;
 
-        [BindProperty(SupportsGet =true)]
-        public string SelectedCountry { get; set; }
-        //public ILogger<AddBranchModel> Logger { get; set; }
-
-        [BindProperty]
-        public List<ProvinceView> GetAllProvince {  get; set; }
-        [BindProperty]
         public List<CountryView> GetAllCountries { get; set; }
+        public string SelectedCountry { get; set; }
+        public readonly IBranchLogic _branchLogic;
+        public List<ProvinceView> GetAllProvinces { get; set; }
         [BindProperty]
         public AddBranchView AddBranchView { get; set; }
-
-        public readonly IProvinceLogic _provinceLogic;
-
-        public readonly ICountriesLogic _countryLogic;
-
-        public readonly IBranchLogic _branchLogic;
         [BindProperty]
-        public string SelectedProvince { get; set; }
-        [BindProperty]
-    
-
-        public List<SelectListItem> ProvinceList { get; set; }    
-        public AddBranchModel(IProvinceLogic provinceLogic, ICountriesLogic countryLogic, IBranchLogic branchLogic)
+        public Guid? SelectedProvince { get; set; }
+        public AddBranchModel(ICountriesLogic countriesLogic, IProvinceLogic provinceLogic, IBranchLogic branchLogic)
         {
-            _provinceLogic = provinceLogic;
-            _countryLogic = countryLogic;
+            _countriesLogic = countriesLogic;
+            _provinceLogic = provinceLogic; 
             _branchLogic = branchLogic;
-            GetAllProvince =new List<ProvinceView>();
-            GetAllCountries =new List<CountryView>();
-            ProvinceList = new List<SelectListItem>();
             AddBranchView = new AddBranchView();
-
         }
-        public async Task OnGet(string selectedCountry)
+
+        public async Task OnGet()
         {
+            GetAllCountries = await _countriesLogic.GetCountriesAsync();
+        }
 
-            GetAllCountries = await _countryLogic.GetCountriesAsync();
-
-            if (!string.IsNullOrEmpty(selectedCountry))
-            {
-                SelectedCountry = selectedCountry;
-                GetAllProvince = await _provinceLogic.GetAllProvinceAsync(selectedCountry);
+        public async Task<IActionResult> OnGetGetProvincesAsync(string selectedCountry)
+        {
+            GetAllProvinces = await _provinceLogic.GetAllProvinceAsync(selectedCountry);
+            return new JsonResult(GetAllProvinces);
+        }
+        public async Task<IActionResult> OnPostAsync()
+        {
+            var province = SelectedProvince;
+            if(province!=null) {
+                AddBranchView.branch.ProvinceID = (Guid)province;
+                if (!string.IsNullOrEmpty(AddBranchView.branch.BranchName) && !string.IsNullOrEmpty(AddBranchView.branch.BranchLocation))
+                {
+                    var model = ObjectMapper.Mapper.Map<AddBranchView>(AddBranchView);
+                    await _branchLogic.AddNewBranchAsync(model);
+                }
+                Redirect("AddBranch/AddBranch");
             }
-           Page();
-
-
-        }
-
-
-
-        //public async Task<IActionResult> OnPostGetProvinceAsync(string selectedCountry)
-        //{
-        //    if (!string.IsNullOrEmpty(selectedCountry))
-        //    {
-        //        SelectedCountry = selectedCountry;
-        //        var provinces = await _provinceLogic.GetAllProvinceAsync(selectedCountry);
-        //        ProvinceList = provinces.Select(p => new SelectListItem
-        //        {
-        //            Value = p.ProvinceID.ToString(),
-        //            Text = p.ProvinceName + " " + p.City
-        //        }).ToList();
-        //    }
-
-        //    // Repopulate countries for the dropdown
-
-
-        //    return Page();
-        //}
-        [HttpGet]
-        public async Task<JsonResult> OnGetProvincesAsync(string selectedCountry)
-        {
-            var provinces = await _provinceLogic.GetAllProvinceAsync(selectedCountry);
-            var provinceList = provinces.Select(p => new SelectListItem
-            {
-                Value = p.ProvinceName,
-                Text = $"{p.ProvinceName} {p.City}"
-            }).ToList();
-            return new JsonResult(provinceList);
-        }
-        public async Task<IActionResult> OnPostAsync(string actions, AddBranchView addBranchView)
-        {
-
-            if (actions == "addBranch")
-            {
-                var model = ObjectMapper.Mapper.Map<AddBranchView>(addBranchView);
-                await _branchLogic.AddNewBranchAsync(model);
-            }
-
+             await OnGet();
             return Page();
         }
     }

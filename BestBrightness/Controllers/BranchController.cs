@@ -58,5 +58,13 @@ namespace BestBrightness.Controllers
 
             return new JsonResult( provinceList );
         }
+
+
+        [HttpGet]
+        public async Task<JsonResult> GetProvinces(string selectedCountry)
+        {
+            var provinces = await _provinceLogic.GetAllProvinceAsync(selectedCountry);
+            return Json(provinces);
+        }
     }
 }
