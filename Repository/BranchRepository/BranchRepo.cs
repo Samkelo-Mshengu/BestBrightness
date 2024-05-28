@@ -27,10 +27,10 @@ namespace Repository.BranchRepository
             {
               new SqlParameter("@BranchName",branch.BranchName.ToUpper()),
               new SqlParameter("@BranchLocation",branch.BranchLocation.ToUpper()),
-              new SqlParameter("@ProvinceName",branch.Provinces.ProvinceName.ToUpper())
+              new SqlParameter("@ProvinceID",branch.ProvinceID)
             };
 
-            var query = "EXEC [AddBranch] @BranchName,@BranchLocation,@ProvinceName";
+            var query = "EXEC [AddBranch] @BranchName,@BranchLocation,@ProvinceID";
             await _context.Database.ExecuteSqlRawAsync(query, parameters);
         }
     }

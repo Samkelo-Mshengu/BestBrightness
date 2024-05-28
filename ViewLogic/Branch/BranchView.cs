@@ -10,6 +10,6 @@ namespace ViewLogic.Branch
     {
         public string BranchName { get; set; }
         public string BranchLocation { get; set; }
-        public string ProvinceName { get; set; }
+        public Guid ProvinceID { get; set; }
     }
 }
