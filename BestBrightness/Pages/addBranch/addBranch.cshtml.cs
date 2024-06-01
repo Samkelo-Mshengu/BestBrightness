@@ -51,11 +51,12 @@ namespace BestBrightness.Pages.AddBranch
                 {
                     var model = ObjectMapper.Mapper.Map<AddBranchView>(AddBranchView);
                     await _branchLogic.AddNewBranchAsync(model);
+                 return RedirectToPage("/addBranch/UpdateBranch");
                 }
-                Redirect("AddBranch/AddBranch");
+               
             }
              await OnGet();
-            return Page();
+            return RedirectToPage("/addBranch/UpdateBranch");
         }
     }
 }
