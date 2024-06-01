@@ -8,6 +8,7 @@ namespace ViewLogic.Statuses
 {
     public class StatusView
     {
-        public string StatusName { get; set; }
+        public Guid StatusID { get; set; }
+        public string StatusName { get; set; } = default!;
     }
 }

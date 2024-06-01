@@ -11,13 +11,13 @@ namespace DataLogic.Users
     {
         [Key]
         public Guid UserId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string FirstName { get; set; } = default!;
+        public string LastName { get; set; }= default!;
         public char? Gender { get; set; }
         public DateTime? DateOfBirth { get; set; }
-        public string ContactNumber { get; set; }
-        public string Username { get; set; }
-        public string UserPassword { get; set; }
-        public string UserType { get; set; }
+        public string ContactNumber { get; set; }=default!;
+        public string Username { get; set; } = default!;
+        public string UserPassword { get; set; } = default!;
+        public string UserType { get; set; } = default!;
     }
 }

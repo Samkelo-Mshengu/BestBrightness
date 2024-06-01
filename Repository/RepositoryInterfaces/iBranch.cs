@@ -11,5 +11,7 @@ namespace Repository.RepositoryInterfaces
     public interface iBranch:iGenericRepository<Branch>
     {
         Task AddNewBranchAsync(AddBranchModel branch);
+        Task<List<Branch>> GetAllBranches(CancellationToken token = default);
+        Task<List<BranchInfo>> GetAllBranchesInfo(CancellationToken token = default);
     }
 }

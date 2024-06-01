@@ -33,5 +33,18 @@ namespace Repository.BranchRepository
             var query = "EXEC [AddBranch] @BranchName,@BranchLocation,@ProvinceID";
             await _context.Database.ExecuteSqlRawAsync(query, parameters);
         }
+
+        public async Task<List<Branch>> GetAllBranches(CancellationToken token = default)
+        {
+            const string query = "EXEC [GetAllBranches]";
+            return await _context.Set<Branch>().FromSqlRaw(query).ToListAsync(cancellationToken: token);
+        }
+        public async Task<List<BranchInfo>> GetAllBranchesInfo(CancellationToken token = default)
+        {
+            const string query = "EXEC [GetBranchesWithProvinceName]";
+            return await _context.Set<BranchInfo>().FromSqlRaw(query).ToListAsync(cancellationToken: token);
+        }
+
     }
+
 }

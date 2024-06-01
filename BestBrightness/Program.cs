@@ -1,22 +1,28 @@
 
 using BestBrightness.Logic;
+using BusinesssLogic.AgeGroupsLogic;
 using BusinesssLogic.AppSetting;
 using BusinesssLogic.BranchLogic;
 using BusinesssLogic.CountryLogic;
 using BusinesssLogic.LogicInterface;
+using BusinesssLogic.MembersLogic;
 using BusinesssLogic.ProvincesLogic;
 using BusinesssLogic.SettingLogic;
+using BusinesssLogic.StatusesLogic;
 using DataLogic;
 using DataLogic.LogicInterfaces;
 using ElmahCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
+using Repository.AgeGroupsRepository;
 using Repository.BranchRepository;
 using Repository.CountriesRepository;
+using Repository.MemberRepository;
 using Repository.ProductRepository;
 using Repository.ProvinceRepository;
 using Repository.RepositoryInterfaces;
 using Repository.SettingsRepository;
+using Repository.StatusRepository;
 
 
 IConfiguration Configuration;
@@ -80,6 +86,14 @@ void SetupInjectionDependency(WebApplicationBuilder webApplicationBuilder)
     webApplicationBuilder.Services.AddTransient<IBranchLogic, BranchLogic>();
     webApplicationBuilder.Services.AddTransient<iBranch, BranchRepo>();
 
+    webApplicationBuilder.Services.AddTransient<IAgeGroupsLogic, AgeGroupLogic>();
+    webApplicationBuilder.Services.AddTransient<iAgeGroup,AgeGroupsRepo>();
+
+    webApplicationBuilder.Services.AddTransient<IStatusesLogic, StatusLogic>();
+    webApplicationBuilder.Services.AddTransient<iStatus, StatusRepo>();
+
+    webApplicationBuilder.Services.AddTransient<IMembersLogic, MemberLogic>();
+    webApplicationBuilder.Services.AddTransient<iMember, MemberRepo>();
 }
 var builder = WebApplication.CreateBuilder(args);
 

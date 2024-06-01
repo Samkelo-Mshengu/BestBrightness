@@ -1,0 +1,110 @@
+﻿@page
+@model BestBrightness.Pages.Member.AddMemberModel
+
+@{
+    ViewData["Title"] = "Add Member";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Member</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aU8f5qZlHfEauXhQrpf8rW+UZu0ekR1VQ/wl5jmzN9AzYZg6Me0/v5z4yBpXy" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5 mb-4">Add Member</h1>
+        <div class="card bg-light">
+            <div class="card-header">
+                Member Information
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <div class="form-group">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            @Html.LabelFor(model => model.AddMember.User.FirstName, htmlAttributes: new { @class = "font-weight-bold" })
+                            @Html.TextBoxFor(model => model.AddMember.User.FirstName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.AddMember.User.FirstName, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-6">
+                            @Html.LabelFor(model => model.AddMember.User.LastName, htmlAttributes: new { @class = "font-weight-bold" })
+                            @Html.TextBoxFor(model => model.AddMember.User.LastName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.AddMember.User.LastName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            @Html.LabelFor(model => model.AddMember.User.Username, htmlAttributes: new { @class = "font-weight-bold" })
+                            @Html.TextBoxFor(model => model.AddMember.User.Username, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.AddMember.User.Username, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-6">
+                            @Html.LabelFor(model => model.AddMember.User.Gender, htmlAttributes: new { @class = "font-weight-bold" })
+                            <select asp-for="AddMember.User.Gender" class="form-control">
+                                <option value="">Select Gender</option>
+                                <option value="M">Male</option>
+                                <option value="F">Female</option>
+                                <option value="O">Other</option>
+                                <option value="">Prefer not to say</option>
+                            </select>
+                            @Html.ValidationMessageFor(model => model.AddMember.User.Gender, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            @Html.LabelFor(model => model.AddMember.User.DateOfBirth, htmlAttributes: new { @class = "font-weight-bold" })
+                            @Html.TextBoxFor(model => model.AddMember.User.DateOfBirth, new { @class = "form-control", type = "date" })
+                            @Html.ValidationMessageFor(model => model.AddMember.User.DateOfBirth, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-6">
+                            @Html.LabelFor(model => model.AddMember.User.ContactNumber, htmlAttributes: new { @class = "font-weight-bold" })
+                            @Html.TextBoxFor(model => model.AddMember.User.ContactNumber, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.AddMember.User.ContactNumber, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            @Html.LabelFor(model => model.AddMember.Address, htmlAttributes: new { @class = "font-weight-bold" })
+                            @Html.TextBoxFor(model => model.AddMember.Address, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.AddMember.Address, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-6">
+                            @Html.LabelFor(model => model.AddMember.JoiningDate, htmlAttributes: new { @class = "font-weight-bold" })
+                            @Html.TextBoxFor(model => model.AddMember.JoiningDate, new { @class = "form-control", type = "date" })
+                            @Html.ValidationMessageFor(model => model.AddMember.JoiningDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            @Html.LabelFor(model => model.AddMember.Status.StatusID, "Status", htmlAttributes: new { @class = "font-weight-bold" })
+                            @Html.DropDownListFor(model => model.AddMember.StatusID, Model.GetAllStatuses.Select(s => new SelectListItem { Value = s.StatusID.ToString(), Text = s.StatusName }), "Please Select Status", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.AddMember.StatusID, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-4">
+                            @Html.LabelFor(model => model.AddMember.Age.AgeGroupName, "Age Group", htmlAttributes: new { @class = "font-weight-bold" })
+                            @Html.DropDownListFor(model => model.AddMember.AgeGroupID, Model.GetAllAgeGroups.Select(a => new SelectListItem { Value = a.AgeGroupID.ToString(), Text = a.AgeGroupName }), "Please Select Age Group", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.AddMember.AgeGroupID, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-4">
+                            @Html.LabelFor(model => model.AddMember.Branch.BranchName, "Branch", htmlAttributes: new { @class = "font-weight-bold" })
+                            @Html.DropDownListFor(model => model.AddMember.BranchID, Model.GetAllBranches.Select(b => new SelectListItem { Value = b.BranchID.ToString(), Text = b.BranchName }), "Please Select Branch", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.AddMember.BranchID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary"> <i class="fas fa-user-plus"></i> Add Member</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

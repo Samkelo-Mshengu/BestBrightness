@@ -8,6 +8,7 @@ namespace ViewLogic.User
 {
     public class UserView
     {
+        public Guid UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public char? Gender { get; set; }

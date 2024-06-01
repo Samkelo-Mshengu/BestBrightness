@@ -8,7 +8,8 @@ namespace ViewLogic.Age
 {
     public class AgeGroupView
     {
-        public string AgeGroupName { get; set; }
-        public int? Age { get; set; }
+        public Guid AgeGroupID { get; set; }
+        public string AgeGroupName { get; set; } = default!;
+        
     }
 }

@@ -1,0 +1,23 @@
+﻿<form id="updateBranchForm">
+    <div class="mb-3">
+        <label for="BranchName" class="form-label">Branch Name</label>
+        <input type="text" class="form-control" id="BranchName" name="BranchName" value="@Model.BranchName" required>
+    </div>
+    <div class="mb-3">
+        <label for="BranchLocation" class="form-label">Branch Location</label>
+        <input type="text" class="form-control" id="BranchLocation" name="BranchLocation" value="@Model.BranchLocation" required>
+    </div>
+    <div class="mb-3">
+        <label for="ProvinceName" class="form-label">Province Name</label>
+        <input type="text" class="form-control" id="ProvinceName" name="ProvinceName" value="@Model.ProvinceName" required>
+    </div>
+    <div class="mb-3">
+        <label for="City" class="form-label">City</label>
+        <input type="text" class="form-control" id="City" name="City" value="@Model.City" required>
+    </div>
+    <div class="mb-3">
+        <label for="CountyName" class="form-label">County Name</label>
+        <input type="text" class="form-control" id="CountyName" name="CountyName" value="@Model.CountyName" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Save changes</button>
+</form>
