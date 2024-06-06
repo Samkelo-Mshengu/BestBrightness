@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ViewLogic.City;
 using ViewLogic.Provinces;
 
 namespace BusinesssLogic.LogicInterface
@@ -10,5 +6,6 @@ namespace BusinesssLogic.LogicInterface
     public interface IProvinceLogic
     {
         Task<List<ProvinceView>> GetAllProvinceAsync(string countryName);
+        Task<List<CityView>> GetAllCityAsync(Guid province);
     }
 }

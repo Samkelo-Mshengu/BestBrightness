@@ -1,12 +1,6 @@
 ﻿using BusinesssLogic.LogicInterface;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using ViewLogic.Branch;
-using ViewLogic.Countries;
-using ViewLogic.Provinces;
 
 namespace BestBrightness.Controllers
 {
@@ -33,5 +27,13 @@ namespace BestBrightness.Controllers
             var provinces = await _provinceLogic.GetAllProvinceAsync(selectedCountry);
             return Json(provinces);
         }
+
+        [HttpGet]
+        public async Task<JsonResult> GetCity(Guid provinceID)
+        {
+            var cities = await _provinceLogic.GetAllCityAsync(provinceID);
+            return Json(cities);
+        }
+
     }
 }

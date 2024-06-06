@@ -13,5 +13,8 @@ namespace BusinesssLogic.LogicInterface
         Task AddNewBranchAsync(AddBranchView view);
         Task<List<BranchView>> GetBranchesAsync();
         Task<List<BranchInfoView>> AllBranchDetails();
+        Task<List<BranchInfoView>> GetBranchByCity(Guid BranchID);
+        Task UpdateBranchByID(BranchInfoView EditedBranch, CancellationToken token = default);
+        Task DeleteBranchByID(Guid BranchID, CancellationToken token = default);
     }
 }

@@ -14,11 +14,12 @@ namespace DataLogic.Branches
     public class Branch
     {
         [Key]
-        public Guid BranchID { get; set; }
-        public string BranchName { get; set; } = default!;
-        public string BranchLocation { get; set; } = default!;
+        public Guid? BranchID { get; set; }
+        public string? BranchName { get; set; } = default!;
+        public string? BranchLocation { get; set; } = default!;
         [ForeignKey("ProvinceID")]
-        public Guid ProvinceID { get; set; }
-        public virtual Provinces.Province Province { get; set; } = default!;
+        public Guid? ProvinceID { get; set; }
+        public Guid? CityID { get; set; }
+        public virtual Provinces.Province? Province { get; set; } = default!;
     }
 }

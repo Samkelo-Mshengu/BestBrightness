@@ -10,10 +10,11 @@ namespace ViewLogic.Branch
 {
     public class BranchView
     {
-        public Guid BranchID { get; set; }
-        public string BranchName { get; set; } = default!;
-        public string BranchLocation { get; set; } = default!;
-        public Guid ProvinceID { get; set; }
-        public virtual ProvinceView Province { get; set; } = default!;
+        public Guid? BranchID { get; set; }
+        public string? BranchName { get; set; } = default!;
+        public string? BranchLocation { get; set; } = default!;
+        public Guid? ProvinceID { get; set; }
+        public Guid? CityID { get; set; }
+        public virtual ProvinceView? Province { get; set; } = default!;
     }
 }

@@ -48,6 +48,11 @@
                         @Html.DropDownListFor(model => model.SelectedProvince, Enumerable.Empty<SelectListItem>(), "Please Select Province", new { @class = "form-control", id = "provinceDropdown" })
                         @Html.ValidationMessageFor(model => model.SelectedProvince, "", new { @class = "text-danger" })
                     </div>
+                    <div class="form-group col-md-3 mb-1" id="cityDiv" style="display: none;">
+                        @Html.LabelFor(model => model.SelectedCity, "City: ", new { @class = "font-weight-bold" })
+                        @Html.DropDownListFor(model => model.SelectedCity, Enumerable.Empty<SelectListItem>(), "Please Select City", new { @class = "form-control", id = "cityDropdown" })
+                        @Html.ValidationMessageFor(model => model.SelectedCity, "", new { @class = "text-danger" })
+                    </div>
                     <button type="button" class="btn btn-primary" onclick="addBranch()">Add Branch <i class="fa fa-edit"></i></button>
                 </form>
             </div>
@@ -95,6 +100,8 @@
             var selectedCountry = $(this).val();
             var provinceDropdown = $("#provinceDropdown");
             var provinceDiv = $("#provinceDiv");
+            var cityDropdown = $("#cityDropdown");
+            var cityDiv = $("#cityDiv");
 
             if (selectedCountry) {
                 $.ajax({
@@ -105,21 +112,55 @@
                         provinceDropdown.empty();
                         provinceDropdown.append("<option value=''>Please Select Province</option>");
                         $.each(provinces, function (index, province) {
-                            provinceDropdown.append(`<option value="${province.provinceID}">${province.provinceName} ${province.city}</option>`);
+                            provinceDropdown.append(`<option value="${province.provinceID}">${province.provinceName}</option>`);
                         });
 
                         // Show the provinces dropdown
                         provinceDiv.show();
+                        cityDiv.hide();
                     },
                     error: function (xhr, status, error) {
                         console.error('Error fetching provinces:', error);
                     }
                 });
             } else {
-                // Hide the provinces dropdown if no country is selected
+                // Hide the provinces and cities dropdowns if no country is selected
                 provinceDiv.hide();
+                cityDiv.hide();
             }
         });
+
+        $("#provinceDropdown").change(function () {
+            var selectedProvinceID = $(this).val();
+            var cityDropdown = $("#cityDropdown");
+            var cityDiv = $("#cityDiv");
+
+            if (selectedProvinceID) {
+                $.ajax({
+                    url: `/Home/GetCity?provinceID=${selectedProvinceID}`,
+                    type: "GET",
+                    success: function (cities) {
+                        // Populate cities dropdown
+                        cityDropdown.empty();
+                        cityDropdown.append("<option value=''>Please Select City</option>");
+                        $.each(cities, function (index, city) {
+                        cityDropdown.append(`<option value="${city.cityID}">${city.cityName}</option>`);
+                        });
+
+                        // Show the cities dropdown
+                        cityDiv.show();
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error fetching cities:', error);
+                    }
+                });
+            } else {
+                // Hide the cities dropdown if no province is selected
+                cityDiv.hide();
+            }
+        });
+
     </script>
+
 </body>
 </html>

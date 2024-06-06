@@ -53,7 +53,7 @@ namespace BestBrightness.Controllers
             var provinceList = provinces.Select(p => new SelectListItem
             {
                 Value = p.ProvinceName,
-                Text = p.ProvinceName + " " + p.City
+                Text = p.ProvinceName 
             }).ToList();
 
             return new JsonResult( provinceList );

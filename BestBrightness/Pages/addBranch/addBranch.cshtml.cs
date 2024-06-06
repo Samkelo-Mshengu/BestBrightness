@@ -24,6 +24,8 @@ namespace BestBrightness.Pages.AddBranch
         public AddBranchView AddBranchView { get; set; }
         [BindProperty]
         public Guid? SelectedProvince { get; set; }
+        [BindProperty]
+        public Guid? SelectedCity { get; set; }
         public AddBranchModel(ICountriesLogic countriesLogic, IProvinceLogic provinceLogic, IBranchLogic branchLogic)
         {
             _countriesLogic = countriesLogic;
@@ -45,18 +47,20 @@ namespace BestBrightness.Pages.AddBranch
         public async Task<IActionResult> OnPostAsync()
         {
             var province = SelectedProvince;
-            if(province!=null) {
+            var city = SelectedCity;
+            if (province!=null && city !=null) {
                 AddBranchView.branch.ProvinceID = (Guid)province;
+                AddBranchView.branch.CityID = (Guid)city;
                 if (!string.IsNullOrEmpty(AddBranchView.branch.BranchName) && !string.IsNullOrEmpty(AddBranchView.branch.BranchLocation))
                 {
                     var model = ObjectMapper.Mapper.Map<AddBranchView>(AddBranchView);
                     await _branchLogic.AddNewBranchAsync(model);
-                 return RedirectToPage("/addBranch/UpdateBranch");
+                 return RedirectToPage("/AddBranch/UpdateBranch");
                 }
                
             }
              await OnGet();
-            return RedirectToPage("/addBranch/UpdateBranch");
+            return RedirectToPage("/AddBranch/UpdateBranch");
         }
     }
 }

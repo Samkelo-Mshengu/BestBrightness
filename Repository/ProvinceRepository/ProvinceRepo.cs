@@ -1,4 +1,5 @@
 ﻿using DataLogic;
+using DataLogic.Cities;
 using DataLogic.Provinces;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ViewLogic.City;
 
 namespace Repository.ProvinceRepository
 {
@@ -20,6 +22,18 @@ namespace Repository.ProvinceRepository
         {
             _context = context;
         }
+
+        public async Task<List<City>> GetAllCityAsync(Guid provinceName, CancellationToken token = default)
+        {
+            var parameters = new SqlParameter[]
+            {
+                new SqlParameter("@province", provinceName)
+            };
+
+            string query = "EXEC [AllCityAsync] @province"; // Assuming your stored procedure name is AllCityAsync
+            return await _context.Set<City>().FromSqlRaw(query, parameters).ToListAsync(cancellationToken: token);
+        }
+
 
         public async Task<List<Province>> GetAllProvines(string countryName ,CancellationToken token=default)
         {

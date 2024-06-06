@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ViewLogic.Branch
 {
-    public class BranchInfoView
+    public class EditBranchView
     {
-        public Guid? BranchID { get; set; } = Guid.Empty;
+        public Guid? BranchID { get; set; }
         public string? BranchName { get; set; } = string.Empty;
         public string? BranchLocation { get; set; } = string.Empty;
         public string? City { get; set; } = string.Empty;

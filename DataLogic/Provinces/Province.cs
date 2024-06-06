@@ -16,7 +16,6 @@ namespace DataLogic.Provinces
         [Key]
         public Guid ProvinceID { get; set; }
         public string ProvinceName { get; set; } = default!;
-        public string City { get; set; } = default!;
         [ForeignKey("CountyID")]
         public Guid? CountyID { get; set; }
 
