@@ -14,6 +14,7 @@ namespace DataLogic.Branches
         public string BranchName { get; set; } = default!;
         public string BranchLocation { get; set; } = default!;
         public Guid ProvinceID { get; set; }
+        public Guid CityID { get; set; }
         public virtual Provinces.Province Provinces { get; set; } = default!;
     }
 }

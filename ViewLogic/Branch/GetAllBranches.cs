@@ -10,8 +10,8 @@ namespace ViewLogic.Branch
 {
     public class GetAllBranches
     {
-        public BranchView BranchView { get; set; } = default!;
-        public ProvinceView ProvinceView { get; set; } = default!;
-        public  CountryView CountryView { get; set; } = default!;
+        public BranchView? BranchView { get; set; } = default!;
+        public ProvinceView? ProvinceView { get; set; } = default!;
+        public  CountryView? CountryView { get; set; } = default!;
     }
 }

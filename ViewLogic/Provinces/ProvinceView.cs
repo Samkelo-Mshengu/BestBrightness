@@ -10,8 +10,7 @@ namespace ViewLogic.Provinces
     public class ProvinceView
     {
         public Guid? ProvinceID { get; set; }
-        public string ProvinceName { get; set; } = default!;
-        public string City { get; set; } = default!;
+        public string? ProvinceName { get; set; } = default!;
         public Guid CountyID { get; set; }
         public virtual CountryView? Country { get; set; }
     }

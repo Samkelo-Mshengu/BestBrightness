@@ -10,10 +10,12 @@ namespace DataLogic.Branches
     [Keyless]
     public class BranchInfo
     {
-        public string BranchName { get; set; } = string.Empty;
-        public string BranchLocation { get; set; } = string.Empty;
-        public string City { get; set; } = string.Empty;
-        public string ProvinceName { get; set; } = string.Empty;
-        public string CountyName { get; set; } = string.Empty;
+        public Guid? BranchID { get; set; } = Guid.Empty;
+        public string? BranchName { get; set; } = null;
+        public string? BranchLocation { get; set; } = null;
+        public string? City { get; set; } = null;
+        public string? ProvinceName { get; set; } = null;
+        public string? CountyName { get; set; } = null;
+
     }
 }

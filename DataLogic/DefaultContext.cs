@@ -3,6 +3,7 @@ using DataLogic.Admin;
 using DataLogic.Age;
 using DataLogic.Await;
 using DataLogic.Branches;
+using DataLogic.Cities;
 using DataLogic.Countries;
 using DataLogic.Events;
 using DataLogic.Members;
@@ -53,6 +54,7 @@ namespace DataLogic
         public DbSet<SuperAdmin> SuperAdmins { get; set; } = default!;
         public DbSet<User> Users { get; set; } = default!;
         public DbSet<BranchInfo> BranchInfos { get; set; } = default!;
+        public DbSet<City> City { get; set; } = default!;
 
 
     }

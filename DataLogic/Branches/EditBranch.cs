@@ -1,14 +1,16 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ViewLogic.Branch
+namespace DataLogic.Branches
 {
-    public class BranchInfoView
+    [Keyless]
+    public class EditBranch
     {
-        public Guid? BranchID { get; set; } = Guid.Empty;
+        public Guid? BranchID { get; set; }
         public string? BranchName { get; set; } = string.Empty;
         public string? BranchLocation { get; set; } = string.Empty;
         public string? City { get; set; } = string.Empty;
