@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewData["Title"] - INQOLA YABA VANGELI</title>
+    <link rel="stylesheet" href="~/css/dashboard.css" />
+</head>
+<body>
+    <div class="wrapper">
+        <button class="hamburger-btn" onclick="toggleNavigation()">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+        <nav class="sidebar">
+            @await Html.PartialAsync("_DashboardNavigation")
+        </nav>
+        <div class="content">
+            @RenderBody()
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/38a6e7dc65.js" crossorigin="anonymous"></script>
+    <script>
+        function toggleNavigation() {
+            document.querySelector('.sidebar').classList.toggle('nav-minimized');
+        }
+    </script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

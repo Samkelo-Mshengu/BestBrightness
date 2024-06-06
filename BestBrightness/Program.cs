@@ -2,6 +2,7 @@
 using BestBrightness.Logic;
 using BusinesssLogic.AgeGroupsLogic;
 using BusinesssLogic.AppSetting;
+using BusinesssLogic.AwaitingsLogic;
 using BusinesssLogic.BranchLogic;
 using BusinesssLogic.CountryLogic;
 using BusinesssLogic.LogicInterface;
@@ -15,6 +16,7 @@ using ElmahCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Repository.AgeGroupsRepository;
+using Repository.AwaitingRepository;
 using Repository.BranchRepository;
 using Repository.CountriesRepository;
 using Repository.MemberRepository;
@@ -94,6 +96,9 @@ void SetupInjectionDependency(WebApplicationBuilder webApplicationBuilder)
 
     webApplicationBuilder.Services.AddTransient<IMembersLogic, MemberLogic>();
     webApplicationBuilder.Services.AddTransient<iMember, MemberRepo>();
+
+    webApplicationBuilder.Services.AddTransient<IAwaitingLogic, AwaitingLogic>();
+    webApplicationBuilder.Services.AddTransient<iAwaiting, AwaitingRepo>();
 }
 var builder = WebApplication.CreateBuilder(args);
 
@@ -158,5 +163,9 @@ app.UseEndpoints(endpoints =>
     endpoints.MapRazorPages();
 });
 app.MapControllers();
+app.MapGet("/", async context =>
+{
+    context.Response.Redirect("/Login");
+});
 
 app.Run();

@@ -13,11 +13,12 @@ namespace BestBrightness.Pages.addBranch
         public UpdateBranchModel(IBranchLogic IBranchLogic) 
         {
         _IBranchLogic = IBranchLogic;
+            GetAllBranches = new List<BranchInfoView>();
         }
 
         public async Task OnGet()
         {
             GetAllBranches = await _IBranchLogic.AllBranchDetails();
-        }
+        } 
     }
 }

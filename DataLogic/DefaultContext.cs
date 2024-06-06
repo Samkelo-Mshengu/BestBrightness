@@ -53,6 +53,9 @@ namespace DataLogic
         public DbSet<SuperAdmin> SuperAdmins { get; set; } = default!;
         public DbSet<User> Users { get; set; } = default!;
         public DbSet<BranchInfo> BranchInfos { get; set; } = default!;
+        public DbSet<MemberProfileModel> MemberProfiles { get; set; }
+        public DbSet<AwaitingModel> Awaiting { get; set; }
+
 
 
     }

@@ -9,6 +9,10 @@ namespace BusinesssLogic.LogicInterface
 {
     public interface IMembersLogic
     {
+        Task<List<MemberProfileView>> AllMemberDetails();
         Task AddBranchMemberAsync(MemberView member);
+        Task<MemberProfileView> MemberDetailsByID(Guid MemberID);
+        Task<List<MemberProfileView>> GetProfileDetailsAsync(string Username);
     }
 }
+ 

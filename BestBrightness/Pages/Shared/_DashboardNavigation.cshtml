@@ -1,0 +1,61 @@
+﻿@using Microsoft.AspNetCore.Http
+@{
+    // Retrieve the current request path
+    var path = Context.Request.Path;
+
+    // Determine the type of navigation to display based on the path
+    bool isMemberPage = path.StartsWithSegments("/MemberPage");
+    bool isSuperuserPage = path.StartsWithSegments("/Superuser");
+    bool isBranchManagerPage = path.StartsWithSegments("/BranchManager");
+}
+
+<ul class="nav flex-column">
+    @if (isMemberPage)
+    {
+        <li class="nav-item">
+            <a class="nav-link" asp-page="/MemberPage/Dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-page="/MemberPage/Activities"><i class="fas fa-running"></i> Activities</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-page="/MemberPage/Profile"><i class="fas fa-user"></i> Profile</a>
+        </li>
+    }
+    else if (isSuperuserPage)
+    {
+        <li class="nav-item">
+            <a class="nav-link" asp-page="/Superuser/Dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-page="/Superuser/Members"><i class="fas fa-users"></i> Members</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-page="/Superuser/AllBranches"><i class="fas fa-code-branch"></i> Branches</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-page="/Superuser/Activities"><i class="fas fa-running"></i> Activities</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-page="/Superuser/Profile"><i class="fas fa-user"></i> Profile</a>
+        </li>
+    }
+    else if (isBranchManagerPage)
+    {
+        <li class="nav-item">
+            <a class="nav-link" asp-page="/BranchManager/BranchManagerDashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-page="/BranchManager/Members"><i class="fas fa-users"></i> Members</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-page="/BranchManager/Activities"><i class="fas fa-running"></i> Activities</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-page="/BranchManager/Profile"><i class="fas fa-user"></i> Profile</a>
+        </li>
+    }
+    <li class="nav-item">
+        <a class="nav-link sign-out" asp-page="/Logout"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+    </li>
+</ul>

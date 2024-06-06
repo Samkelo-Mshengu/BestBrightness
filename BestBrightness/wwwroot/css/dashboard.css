@@ -1,0 +1,116 @@
+﻿@import url('../lib/bootstrap/dist/css/bootstrap.min.css');
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+}
+
+.wrapper {
+    display: flex;
+    width: 100%;
+}
+
+/* Sidebar styling / Navigation */
+.sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background-color: #0077cc; /* Primary blue color */
+    color: #fff;
+    padding: 15px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: fixed;
+    transition: transform 0.3s ease; /* Smooth slide in/out */
+    transform: translateX(0); /* Show sidebar by default */
+}
+
+    .sidebar.nav-minimized {
+        transform: translateX(-100%);
+    }
+
+    .sidebar .nav {
+        padding: 0;
+        list-style: none;
+    }
+
+    .sidebar .nav-item {
+        width: 100%;
+    }
+
+    .sidebar .nav-link {
+        display: block;
+        padding: 10px 15px;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
+
+        .sidebar .nav-link i {
+            margin-right: 10px;
+        }
+
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
+            background-color: #005bb5; /* Darker blue for hover/active */
+        }
+
+        .sidebar .nav-link.sign-out {
+            margin-top: auto;
+            background-color: #d9534f; /* Sign out button in red */
+        }
+
+            .sidebar .nav-link.sign-out:hover {
+                background-color: #c9302c; /* Darker red for hover */
+            }
+
+/* Hamburger styling */
+.hamburger-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 1000;
+}
+
+    .hamburger-btn .bar {
+        display: block;
+        width: 25px;
+        height: 3px;
+        margin: 5px auto;
+        background-color: #333;
+    }
+
+.content {
+    margin-left: 250px;
+    padding: 40px;
+    flex-grow: 1;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%); /* Hide sidebar by default on small screens */
+    }
+
+        .sidebar.nav-minimized {
+            transform: translateX(0); /* Show sidebar when toggled */
+        }
+
+    .hamburger-btn {
+        display: block;
+    }
+
+    .content {
+        margin-left: 0;
+        padding: 20px;
+    }
+}

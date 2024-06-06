@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using DataLogic.Members;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using DataLogic.Provinces;
 
 namespace Repository.MemberRepository
 {
@@ -41,6 +42,40 @@ namespace Repository.MemberRepository
             var query = "EXEC [AddBranchMember] @FirstName,@LastName,@Username,@Gender,@DateOfBirth,@ContactNumber,@Address,@JoiningDate,@StatusID,@AgeGroupID,@BranchID";
             await _context.Database.ExecuteSqlRawAsync(query, parameters);
         }
+
+     
+
+
+        public async Task<List<MemberProfileModel>> GetAllMembers(CancellationToken token = default)
+        {
+             string query = "EXEC [GetAllMembers]";
+            var model= await _context.Set<MemberProfileModel>().FromSqlRaw(query).ToListAsync(cancellationToken: token);
+            return model;
+        }
+        
+        public async Task<List<MemberProfileModel>> GetProfileDetails(string Username, CancellationToken token = default)
+        {
+            var parameters = new SqlParameter[]
+          {
+                  new SqlParameter("@Username", Username)
+
+          };
+           const string query = "EXEC [GetProfileDetails] @Username";
+            return await _context.Set<MemberProfileModel>().FromSqlRaw(query, parameters).ToListAsync(cancellationToken: token);
+        }
+
+        public async Task<MemberProfileModel> GetAllMemberById(Guid MemberID, CancellationToken token = default)
+        {
+            var parameters = new SqlParameter[]
+          {
+                  new SqlParameter("@MemberID", MemberID)
+
+          };
+            string query = "EXEC [GetAllMembersById] @MemberID";
+            var model= await _context.Set<MemberProfileModel>().FromSqlRaw(query, parameters).ToListAsync(cancellationToken: token);
+            return model.FirstOrDefault();
+        }
+
 
     }
 }

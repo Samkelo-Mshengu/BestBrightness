@@ -1,0 +1,51 @@
+﻿@page
+@model BestBrightness.Pages.Member.ViewMembersModel
+<!-- Members Table -->
+<div class="card bg-light">
+    <div class="card-header">
+        Members List
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Username</th>
+                    <th>Gender</th>
+                    <th>Date of Birth</th>
+                    <th>Contact Number</th>
+                    <th>Address</th>
+                    <th>Joining Date</th>
+                    <th>Status</th>
+                    <th>Age Group</th>
+                    <th>Branch</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var member in Model.GetAllMembers)
+                {
+                    <tr>
+                        <td>@member.FirstName</td>
+                        <td>@member.LastName</td>
+                        <td>@member.Username</td>
+                        <td>@member.Gender</td>
+                        <td>@member.DateOfBirth</td>
+                        <td>@member.ContactNumber</td>
+                        <td>@member.Address</td>
+                        <td>@member.JoiningDate</td>
+                        <td>@member.StatusName</td>
+                        <td>@member.AgeGroupName</td>
+                        <td>@member.BranchName</td>
+                        <td>
+                            <a href="@Url.Page("/Member/Edit", new { id = member.MemberID })" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i> Edit</a>
+                            <a href="@Url.Page("/Member/Add", new { id = member.MemberID })" class="btn btn-sm btn-success"><i class="fas fa-plus"></i> Add</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

@@ -11,5 +11,8 @@ namespace Repository.RepositoryInterfaces
     public interface iMember:iGenericRepository<MemberModel>
     {
         Task AddNewMemberAsync(MemberModel member);
+        Task<List<MemberProfileModel>> GetAllMembers(CancellationToken token = default);
+        Task<MemberProfileModel> GetAllMemberById(Guid MemberID, CancellationToken token = default);
+        Task<List<MemberProfileModel>> GetProfileDetails(string Username, CancellationToken token = default);
     }
 }
